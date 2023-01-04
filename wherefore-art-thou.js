@@ -12,27 +12,13 @@ that was passed on as the second argument.
 */
 
 function whatIsInAName(collection, source) {
-	return collection
-		.filter(item => {
-			for (const [sourceKey, sourceValue] of Object.entries(source)) {
-				//console.log(`${sourceKey}: ${sourceValue}`)
-				console.log("\n")
-				Object.entries(item).some(item => {
-					console.log("lolwut")
-				})
-				/*
-				for (const [key, value] of Object.entries(item)) {
-					if (key == sourceKey && value == sourceValue) {
-
-					}
-				}*/
-			}
-			return item[Object.keys(source)[0]] == Object.values(source)[0]
-		})
+	let sourceKeys = Object.keys(source)
+	return collection.filter(item => sourceKeys
+		.every(key => item.hasOwnProperty(key) && item[key] == source[key])
+	)
 }
 
-//console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }))
-whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat":2 }], { "apple": 1, "bat": 2 })
+console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat":2 }], { "apple": 1, "bat": 2 }))
 
 /*
 
